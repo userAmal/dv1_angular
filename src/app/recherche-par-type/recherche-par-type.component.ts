@@ -18,7 +18,7 @@ export class RechercheParTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.reservationService.listetypes().
-      subscribe(ty=> {this.types = ty._embedded.types;
+      subscribe(ty=> {this.types = ty;
       console.log(ty);
     });
   }

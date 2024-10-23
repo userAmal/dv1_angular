@@ -13,6 +13,7 @@ export class AddReservationComponent {
   types! : Type[];
   newidty! : number;
   newtype! : Type;
+  type! : Type;
   
   constructor(private reservationService: ReservationService,
               private router : Router) { }
@@ -20,7 +21,8 @@ export class AddReservationComponent {
   ngOnInit(): void {
 
     this.reservationService.listetypes().
-          subscribe(ty => {this.types = ty._embedded.types;
+          subscribe(ty => {
+            this.types = ty;
             console.log(ty);
         });
  
@@ -28,11 +30,14 @@ export class AddReservationComponent {
 
  
   addreservation(){
+    //console.log(this.newidty);
+    //this.newtype = this.reservationService.consultertype(this.newidty);
+    //this.newReservation.type = this.newtype;
     this.newReservation.type = this.types.find((typ) => typ.idty == this.newidty)!;
     console.log(this.newReservation.type)
     this.reservationService.ajouterReservation(this.newReservation).subscribe((ty) => {
       console.log(ty);
-      this.router.navigate(['Reservations']);
+      this.router.navigate(['reservations']);
     });
   }
     /*if (!this.types || this.types.length === 0) {

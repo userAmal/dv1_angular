@@ -8,8 +8,14 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ReservationGuard } from './reservation.guard';
 import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
 import {RechercheParTypeComponent} from "./recherche-par-type/recherche-par-type.component";
+import { ListeTypesComponent } from './liste-types/liste-types.component';
+import { RegisterComponent } from './register/register.component';
+import { VerifEmailComponent } from './verif-email/verif-email.component';
 
 const routes: Routes = [
+  { path: 'verifEmail', component: VerifEmailComponent }, 
+  {path:'register',component:RegisterComponent}, 
+  {path: "listeTypes", component : ListeTypesComponent}, 
   {path: "rechercheParNom", component : RechercheParNomComponent},
   {path: "rechercheParType", component : RechercheParTypeComponent},
   {path : "add-reservation", component : AddReservationComponent, canActivate:[ReservationGuard]},

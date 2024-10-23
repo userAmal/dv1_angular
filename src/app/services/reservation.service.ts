@@ -17,9 +17,9 @@ headers: new HttpHeaders( {'Content-Type': 'application/json'} )
   providedIn: 'root'
 })
 export class ReservationService {
-
+  types!: Type[];
   apiURL: string = 'http://localhost:8080/reservations/api';
-  apiURLty: string = 'http://localhost:8080/reservations/typ';
+  apiURLty: string = 'http://localhost:8080/reservations/api/typ';
 
   reservations! : reservation[]; //un tableau de produits
   //categories : Categorie[];
@@ -86,12 +86,15 @@ export class ReservationService {
 
 
 
-       listetypes():Observable<TypeWrapper>{
+       listetypes():Observable<Type[]>{
         let jwt = this.authService.getToken();
         jwt = "Bearer "+jwt;
         let httpHeaders = new HttpHeaders({"Authorization":jwt})
-        return  this.http.get<TypeWrapper>(this.apiURLty,{headers:httpHeaders});
+        return  this.http.get<Type[]>(this.apiURLty,{headers:httpHeaders});
 
+            }
+            consultertype(id: number): Type {
+              return this.types.find((type) => type.idty == id)!;
             }
 
        rechercherParType(idty: number): Observable<reservation[]> {
@@ -104,11 +107,15 @@ export class ReservationService {
     return this.http.get<reservation[]>(url);
     }
 
-    ajoutertype( ty: Type):Observable<Type>{
-      return this.http.post<Type>(this.apiURLty, ty, httpOptions);
+    ajoutertype(typ: Type):Observable<Type>{
+      let jwt = this.authService.getToken();
+      jwt = 'Bearer ' + jwt;
+      let httpHeaders = new HttpHeaders({ Authorization: jwt });
+      return this.http.post<Type>(this.apiURLty + '/addtype', typ, {
+        headers: httpHeaders,
+      });
       }
-
-
+  
 
 }
 
